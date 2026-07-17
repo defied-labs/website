@@ -1,0 +1,32 @@
+{
+  "name": "@defied/auth",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@better-auth/prisma-adapter": "^1.6.22",
+    "@defied/db": "workspace:*",
+    "@defied/env": "workspace:*",
+    "@types/nodemailer": "^8.0.1",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "nodemailer": "^9.0.3",
+    "stripe": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@defied/config": "workspace:*",
+    "typescript": "^6.0.3"
+  }
+}

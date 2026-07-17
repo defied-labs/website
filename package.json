@@ -1,0 +1,40 @@
+{
+  "name": "defied",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "check-types": "turbo check-types",
+    "dev:web": "turbo -F web dev",
+    "dev:docs": "turbo -F docs dev",
+    "build:docs": "turbo -F docs build",
+    "check:docs": "turbo -F docs check-types",
+    "dev:server": "turbo -F server dev",
+    "db:push": "turbo -F @defied/db db:push",
+    "db:studio": "turbo -F @defied/db db:studio",
+    "db:generate": "turbo -F @defied/db db:generate",
+    "db:migrate": "turbo -F @defied/db db:migrate"
+  },
+  "dependencies": {
+    "@defied/env": "workspace:*",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@defied/config": "workspace:*",
+    "@types/node": "catalog:",
+    "turbo": "^2.10.0",
+    "typescript": "^6.0.3"
+  },
+  "packageManager": "pnpm@10.13.1",
+  "pnpm": {
+    "overrides": {
+      "kysely": "0.28.17"
+    }
+  }
+}

@@ -1,0 +1,3 @@
+{
+  "extends": "@defied/config/tsconfig.base.json"
+}

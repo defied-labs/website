@@ -1,0 +1,29 @@
+[6n[?9001h[?1004h[m]0;C:\WINDOWS\system32\cmd.exe[?25h]0;C:\WINDOWS\system32\cmd.exe [?25l
+> @defied/auth@ check-types C:\Users\Sgattix\Desktop\PROGRAMMING-PROJECTS\defied\packages\auth
+> tsc --noEmit[5;1H[?25h[?25l[96msrc/index.ts[m:[93m35[m:[93m7 [m- [91merror [90mTS2322: [mType '(data: { email: string; url: string; token: string; metadata?: Record<string, any> | undefined; }, _ctx?: any) => Promise<{ success: boolean; error?: string | undefined; }>' is not assignable to type '(data: { email: string; url: string; token: string; metadata?: Record<string, any> | undefined; }, ctx?: GenericEndpointContext | undefined) => Awaitable<void>'.
+  Type 'Promise<{ success: boolean; error?: string | undefined; }>' is not assignable to type 'Awaitable<void>'.
+    Type 'Promise<{ success: boolean; error?: string | undefined; }>' is not assignable to type 'Promise<void>'.
+      Type '{ success: boolean; error?: string | undefined; }' is not assignable to type 'void'.[7m[12;1H35[27m       sendMagicLink,[7m
+  [27m       [91m~~~~~~~~~~~~~[m[15;1H  [96m../../node_modules/.pnpm/better-auth@1.6.23_@prisma+_1d9e617a27ba8f452ac9b11e1a3b3676/node_modules/better-auth/dist/plugins/magic-link/index.d.mts[m:[93m35[m:[93m3[m
+    [7m35[27m   sendMagicLink: (data: {
+    [7m  [27m   [96m~~~~~~~~~~~~~[m
+    The expected type comes from property 'sendMagicLink' which is declared here on type 'MagicLinkOptions'[20;1H[?25h[?25l[96msrc/templates/magic-link.ts[m:[93m9[m:[93m5 [m- [91merror [90mTS2769: [mNo overload matches this call.
+  The last overload gave the following error.
+    Object literal may only specify known properties, and 'host' does not exist in type 'TransportOptions | Transport<unknown, TransportOptions>'.[7m[24;1H9[27m     host: env.SMTP_HOST,[7m
+ [27m     [91m~~~~[m[27;1H  [96m../../node_modules/.pnpm/@types+nodemailer@8.0.1/node_modules/@types/nodemailer/index.d.ts[m:[93m70[m:[93m17[m
+    [7m70[27m export function createTransport<T>(
+    [7m  [27m[17X[96m[17C~~~~~~~~~~~~~~~[m
+    The last overload is declared here.
+[?25h
+
+
+Found 2 errors in 2 files.
+
+Errors  Files
+     1  src/index.ts[90m:35[K
+[m
+     1  src/templates/magic-link.ts[90m:9[K
+[m
+[30m[41m ELIFECYCLE [m [31mCommand failed with exit code 1.
+[m
+[?9001l[?1004l
