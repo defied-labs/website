@@ -1,11 +1,11 @@
 "use client";
 
-import { useSession } from "better-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { authClient } from "@/lib/auth-client";
 
 function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const { data: session, isPending } = useSession();
+  const { data: session, isPending } = authClient.useSession();
   const router = useRouter();
 
   useEffect(() => {

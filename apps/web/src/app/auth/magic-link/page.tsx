@@ -67,8 +67,8 @@ export default function MagicLinkSignIn() {
   };
 
   return (
-    <div className="min-h-[92dvh] grid grid-cols-3 items-center justify-center bg-background w-full border-b relative">
-      <div className="lg:w-1/3 px-10 bg-background/90 h-full flex flex-col justify-center absolute top-0 left-0 col-span-1 z-10">
+    <div className="min-h-screen grid grid-cols-3 items-center justify-center bg-background w-full border-b relative">
+      <div className="px-10 bg-background/90 h-full flex flex-col justify-center col-span-1">
         <div className="mx-auto flex space-y-6 flex-col">
           <div>
             <h2 className="mt-6 text-3xl font-extrabold text-primary">
@@ -145,7 +145,7 @@ export default function MagicLinkSignIn() {
           </div>
         </div>
       </div>
-      <div className="w-full h-full col-span-3">
+      <div className="w-full h-full col-span-2">
         <FaultyTerminal
           scale={2.2}
           gridMul={[2, 1]}

@@ -1,10 +1,11 @@
-import { env } from "@defied/env/web";
+import { env } from "@defied/env/server";
 import { NextRequest, NextResponse } from "next/server";
+import { forwardCookies } from "@/lib/auth-cookies";
 
 export async function GET(request: NextRequest) {
   try {
     const response = await fetch(
-      `${env.NEXT_PUBLIC_SERVER_URL}/api/auth/get-session`,
+      `${env.BETTER_AUTH_URL}/api/auth/get-session`,
       {
         method: "GET",
         headers: {
@@ -23,7 +24,15 @@ export async function GET(request: NextRequest) {
     }
 
     const data = await response.json();
-    return NextResponse.json(data);
+
+    // Create NextResponse and forward cookies from the auth server
+    const nextResponse = NextResponse.json(data);
+
+    // Forward any Set-Cookie headers from the auth server to the client
+    // This preserves all cookie attributes including Secure and SameSite=None
+    forwardCookies(nextResponse, response.headers.getSetCookie());
+
+    return nextResponse;
   } catch (error) {
     console.error("Error getting session:", error);
     return NextResponse.json(

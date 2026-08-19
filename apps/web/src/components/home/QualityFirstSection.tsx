@@ -8,12 +8,12 @@ function QualityFirstSection() {
       <SectionTitle className="text-center">
         <span>// Quality First</span>
         <span>
-          Enterprise trust is <br />
-          earned in the details
+          Open-source discipline, <br />
+          <span className="text-primary italic">quality first</span>
         </span>
       </SectionTitle>
 
-      <div className="grid lg:grid-cols-3 gap-10 max-w-5xl mx-auto mt-8 px-16">
+      <div className="lg:grid lg:grid-cols-3 flex flex-col gap-10 max-w-5xl mx-auto mt-8 px-16">
         {itemsConfig.qualityFirstSection.map((item) => (
           <div key={item.id} className="bg-muted p-6 rounded-2xl">
             <p className="text-4xl font-bold">{item.value}</p>
@@ -22,29 +22,29 @@ function QualityFirstSection() {
             </h3>
           </div>
         ))}
-        <div className="col-span-3 bg-foreground rounded-2xl">
-          <p className="text-lg text-background p-6">
-            “Defied’s open source discipline is why we trusted them with a
-            system that can’t go down. They ship like engineers, not like a
-            vendor.”
+        <div className="col-span-3 bg-secondary rounded-2xl">
+          <p className="text-lg p-6">
+            {/* TODO: Add a testimonial or quote here */}
           </p>
 
-          <div className="flex items-center gap-4 p-6 border-t border-muted">
+          <div className="flex items-center gap-4 p-6 border-t border-muted-foreground/20">
             <div className="bg-primary/10 w-fit p-2 rounded-md">
               <IconUser className="text-primary" />
             </div>
             <div>
-              <p className="font-semibold text-background">John Doe</p>
-              <p className="text-sm text-background/80">
-                Chief Technology Officer, TechCorp
+              <p className="font-semibold">
+                {/* TODO: Add a testimonial or quote here */}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {/* TODO: Add a testimonial or quote here */}
               </p>
             </div>
           </div>
         </div>
       </div>
 
-      <p className="text-center text-sm text-muted-foreground mt-40">
-        Trusted by teams building on open foundation
+      <p className="text-center text-sm text-muted-foreground mt-20">
+        Trusted by teams building on an open foundation
       </p>
       {/*       <LogoLoop
         logos={techLogos}

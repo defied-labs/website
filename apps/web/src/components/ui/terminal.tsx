@@ -9,8 +9,6 @@ function Terminal({
   children: React.ReactNode;
   className?: string;
 }) {
-  // Use intersection observer to detect when the terminal is in view and then animate the children with a fade-in effect
-
   React.useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -34,7 +32,7 @@ function Terminal({
   return (
     <div
       className={cn(
-        "bg-black font-mono flex flex-col gap-2 rounded-xl p-4 text-white text-sm overflow-x-auto h-full w-full terminal",
+        "bg-background font-mono flex flex-col gap-2 rounded-xl p-4 text-white text-sm overflow-x-auto h-full w-full terminal",
         className,
       )}
     >

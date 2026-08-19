@@ -6,11 +6,10 @@ function TodaySection() {
   return (
     <section className="bg-muted py-16 min-h-[50dvh] w-full">
       <SectionTitle className="text-center">
-        <span>// Today</span>
+        <span>// Our principles</span>
         <span>
-          AI-oriented services,
-          <br />
-          enterprise discipline
+          What <span className="text-primary italic">we stand for</span>, <br />
+          and how we approach software development
         </span>
       </SectionTitle>
 

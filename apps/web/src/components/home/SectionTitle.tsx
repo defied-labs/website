@@ -10,7 +10,7 @@ function SectionTitle({
       <p className="text-sm font-mono text-primary uppercase">
         {children?.[0]}
       </p>
-      <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+      <h2 className="text-3xl tracking-tight sm:text-4xl font-serif">
         {children?.[1]}
       </h2>
     </div>

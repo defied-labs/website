@@ -12,7 +12,7 @@ function Footer() {
         <div className="flex flex-col gap-2 items-start">
           <h1 className="text-xl font-bold">Defied</h1>
           <p className="text-sm text-muted-foreground font-medium">
-            From ideas to digital reality
+            Defy limits, build better
           </p>
         </div>
         <div className=""></div>
@@ -41,7 +41,7 @@ function Footer() {
               Services
             </Link>
             <Link
-              href="https://github.com/defied"
+              href="https://github.com/defied-labs"
               className="text-sm text-muted-foreground font-medium"
             >
               GitHub
