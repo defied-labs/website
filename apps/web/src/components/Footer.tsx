@@ -35,7 +35,7 @@ function Footer() {
           <div className="flex flex-col gap-2">
             <p className="font-semibold text-sm">Work</p>
             <Link
-              href="/services"
+              href="#services"
               className="text-sm text-muted-foreground font-medium"
             >
               Services

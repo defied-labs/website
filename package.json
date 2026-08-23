@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@defied/env": "workspace:*",
+    "@defied/ui": "link:../../../AppData/Local/pnpm/global/5/node_modules/@defied/ui",
     "dotenv": "catalog:",
     "zod": "catalog:"
   },

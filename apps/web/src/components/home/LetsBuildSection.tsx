@@ -20,7 +20,7 @@ function LetsBuildSection() {
         </p>
 
         <div className="flex gap-4 mt-4 items-center justify-center ">
-          <Link href="/contact">
+          <Link href="#contact">
             <Button className="py-5.5 px-6 text-white text-[16px] font-semibold rounded-[10px] cursor-pointer tracking-tight box-border">
               Book a call
             </Button>

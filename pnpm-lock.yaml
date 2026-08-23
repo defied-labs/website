@@ -56,6 +56,9 @@ importers:
       '@defied/env':
         specifier: workspace:*
         version: link:packages/env
+      '@defied/ui':
+        specifier: link:../../../AppData/Local/pnpm/global/5/node_modules/@defied/ui
+        version: link:../../../AppData/Local/pnpm/global/5/node_modules/@defied/ui
       dotenv:
         specifier: 'catalog:'
         version: 17.4.2

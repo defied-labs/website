@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -29,9 +28,9 @@ function ProjectCard({ project }: { project: Project }) {
       <CardContent className="text-muted-foreground">{description}</CardContent>
       <CardFooter className="flex items-center justify-between gap-4">
         <Button variant="outline">
-          <Link href={link} target="_blank">
+          <a href={link} target="_blank" rel="noopener noreferrer">
             View Project
-          </Link>
+          </a>
         </Button>
         {/* Stats */}
         {forks > 0 && stars > 0 && (
