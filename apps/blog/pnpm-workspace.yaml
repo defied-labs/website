@@ -1,0 +1,7 @@
+ignoredBuiltDependencies:
+  - sharp
+  - unrs-resolver
+
+overrides:
+  '@defied/ui': link:../../../../../AppData/Local/pnpm/global/5/node_modules/@defied/ui
+  cli: link:../../../../../AppData/Local/pnpm/global/5/node_modules/@defied-prism/cli

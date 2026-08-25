@@ -1,0 +1,15 @@
+{
+  "programmingLanguage": "TypeScript",
+  "stylingEngine": "TailwindCSS",
+  "framework": "React",
+  "componentPath": "src/components/ui",
+  "components": [
+    {
+      "name": "header"
+    },
+    {
+      "name": "navbar-menu"
+    }
+  ],
+  "packageManager": "pnpm"
+}
