@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import LightRays from "@/components/LightRays";
+import AnimatedHeadline from "@/components/home/AnimatedHeadline";
 
 function Hero() {
   return (
@@ -23,12 +24,7 @@ function Hero() {
         />
       </div>
       <div className="z-10 flex flex-col items-center justify-center gap-4 text-center">
-        <h1 className="text-3xl tracking-tight sm:text-5xl font-serif">
-          The industry standard was{" "}
-          <span className="text-primary italic">a ceiling</span>.
-          <br />
-          Until we <span className="text-primary">defied</span> it.
-        </h1>
+        <AnimatedHeadline />
         <p className="max-w-175 text-lg text-muted-foreground sm:text-xl">
           Defied is an open-source oriented software development collective that
           builds high-quality software products and services for businesses and
