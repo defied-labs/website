@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import LightRays from "@/components/LightRays";
+import LightRays from "@/components/home/LightRays";
+import SoftAurora from "@/components/home/SoftAurora";
 
 function Hero() {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 text-center pt-30 px-10 pb-25 min-h-screen">
+    <section className="flex flex-col items-center justify-center gap-4 text-center pt-30 px-10 pb-25 min-h-screen">
       <div className="absolute top-0 left-0 w-full h-full z-0">
         <LightRays
           raysOrigin="top-center"
@@ -22,7 +23,26 @@ function Hero() {
           saturation={1}
         />
       </div>
-      <div className="z-10 flex flex-col items-center justify-center gap-4 text-center">
+      <div className="absolute left-0 z-10 w-full h-full dark:block hidden">
+        <SoftAurora
+          speed={0.1}
+          scale={1.5}
+          brightness={0.6}
+          color1="#06B6D4"
+          color2="#10B981"
+          noiseFrequency={2.5}
+          noiseAmplitude={1}
+          bandHeight={0.6}
+          bandSpread={1.2}
+          octaveDecay={0.08}
+          layerOffset={0.55}
+          colorSpeed={1.9}
+          mouseInfluence={0}
+        />
+        <div className="absolute top-0 left-0 w-1/2 h-full bg-linear-to-r from-background via-background to-transparent z-10" />
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-linear-to-l from-background via-background to-transparent z-10" />
+      </div>
+      <div className="z-20 flex flex-col items-center justify-center gap-4 text-center">
         <h1 className="text-3xl tracking-tight sm:text-5xl font-serif">
           The industry standard was{" "}
           <span className="text-primary italic">a ceiling</span>.
@@ -69,7 +89,7 @@ function Hero() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

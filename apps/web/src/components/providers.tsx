@@ -2,6 +2,7 @@
 
 import { ThemeProvider } from "./theme-provider";
 import { Toaster } from "./ui/sonner";
+import { ViewTransitions } from "next-view-transitions";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -11,8 +12,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         defaultTheme="system"
         enableSystem
         disableTransitionOnChange
-      />
-      {children}
+      >
+        <ViewTransitions>{children}</ViewTransitions>
+      </ThemeProvider>
       <Toaster richColors />
     </>
   );

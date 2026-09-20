@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 
 import { Inter, Lora } from "next/font/google";
 
-import "../index.css";
-import Header from "@/components/header";
+import "./index.css";
 import Providers from "@/components/providers";
 import { ModeToggle } from "@/components/mode-toggle";
-import Footer from "@/components/Footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -34,9 +32,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${lora.variable} antialiased`}>
         <Providers>
           <div className="flex flex-col min-h-screen bg-background text-foreground items-center w-full h-full">
-            <Header />
             {children}
-            <Footer />
           </div>
           <ModeToggle />
         </Providers>

@@ -1,4 +1,4 @@
-import SectionTitle from "@/components/home/SectionTitle";
+import SectionTitle from "@/components/ui/SectionTitle";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { itemsConfig } from "@/config/itemsConfig";
 

@@ -1,11 +1,24 @@
 {
   "name": "@defied/env",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "exports": {
-    "./server": "./src/server.ts",
-    "./web": "./src/web.ts"
+    "./server": {
+      "types": "./src/server.ts",
+      "default": "./src/server.ts"
+    },
+    "./web": {
+      "types": "./src/web.ts",
+      "default": "./src/web.ts"
+    },
+    "./native": {
+      "types": "./src/native.ts",
+      "default": "./src/native.ts"
+    }
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit"
   },
   "dependencies": {
     "@t3-oss/env-core": "^0.13.11",
@@ -14,7 +27,7 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@defied/config": "workspace:*",
+    "@defied/config": "workspace:^",
     "@types/node": "catalog:",
     "typescript": "^6.0.3"
   }

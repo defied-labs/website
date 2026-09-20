@@ -1,21 +1,12 @@
-import { createTransport } from "nodemailer";
 import { env } from "@defied/env/server";
+import { transporter } from "../lib/email";
 
 /**
  * Send magic link email
  */
 export async function sendMagicLinkEmail(email: string, magicLink: string) {
-  const transporter = createTransport({
-    host: env.SMTP_HOST,
-    port: env.SMTP_PORT,
-    secure: env.SMTP_SECURE,
-    auth: {
-      user: env.SMTP_USER,
-      pass: env.SMTP_PASS,
-    },
-  });
-
   const mailOptions = {
+
     from: env.SMTP_FROM,
     to: email,
     subject: "Sign in to Defied",

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import {
   DropdownMenu,
@@ -17,9 +18,13 @@ import { Skeleton } from "./ui/skeleton";
 
 export default function UserMenu() {
   const router = useRouter();
-  const { data: session, isPending } = authClient.useSession();
+  const [session, setSession] = useState<any>(undefined);
 
-  if (isPending) {
+  useEffect(() => {
+    authClient.getSession().then(setSession);
+  }, []);
+
+  if (session === undefined) {
     return <Skeleton className="h-9 w-24" />;
   }
 
@@ -44,13 +49,7 @@ export default function UserMenu() {
           <DropdownMenuItem
             variant="destructive"
             onClick={() => {
-              authClient.signOut({
-                fetchOptions: {
-                  onSuccess: () => {
-                    router.push("/");
-                  },
-                },
-              });
+              void authClient.signOut("/").then(() => router.push("/"));
             }}
           >
             Sign Out

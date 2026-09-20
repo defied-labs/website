@@ -5,11 +5,17 @@ import { z } from "zod";
 export const env = createEnv({
   server: {
     DATABASE_URL: z.string().min(1),
-    BETTER_AUTH_SECRET: z.string().min(32),
-    BETTER_AUTH_URL: z.url(),
+    AUTH_SECRET: z.string().min(16),
+    AUTH_URL: z.string().url().optional(),
+    AUTH_TRUST_HOST: z.string().optional().default("true"),
+    AUTH_ZITADEL_ID: z.string().optional(),
+    AUTH_ZITADEL_SECRET: z.string().optional(),
+    AUTH_ZITADEL_ISSUER: z.string().optional(),
+    BETTER_AUTH_SECRET: z.string().optional(),
+    BETTER_AUTH_URL: z.string().url().optional(),
     STRIPE_SECRET_KEY: z.string().min(1),
     STRIPE_WEBHOOK_SECRET: z.string().min(1),
-    CORS_ORIGIN: z.url(),
+    CORS_ORIGIN: z.string().url(),
     NODE_ENV: z
       .enum(["development", "production", "test"])
       .default("development"),
@@ -24,3 +30,5 @@ export const env = createEnv({
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,
 });
+
+

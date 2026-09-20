@@ -2,21 +2,12 @@ import { Module } from "@nestjs/common";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { AuthModule } from "@thallesp/nestjs-better-auth";
-import { auth } from "@defied/auth";
+import { BlogController, PublicBlogController } from "./blog.controller";
+import { AuthGuard } from "./auth/auth.guard";
+import { BlogService } from "./blog.service";
 
 @Module({
-  imports: [
-    AuthModule.forRoot({
-      auth,
-      bodyParser: {
-        json: { limit: "2mb" },
-        urlencoded: { limit: "2mb", extended: true },
-        rawBody: true,
-      },
-    }),
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, BlogController, PublicBlogController],
+  providers: [AppService, BlogService, AuthGuard],
 })
 export class AppModule {}

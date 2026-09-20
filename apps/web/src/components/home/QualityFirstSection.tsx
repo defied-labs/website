@@ -1,5 +1,5 @@
 import { itemsConfig } from "@/config/itemsConfig";
-import SectionTitle from "./SectionTitle";
+import SectionTitle from "../ui/SectionTitle";
 import { IconUser } from "@tabler/icons-react";
 
 function QualityFirstSection() {

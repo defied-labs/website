@@ -11,6 +11,27 @@ export const itemsConfig = {
   navLinks: [
     {
       id: 1,
+      title: "Blog",
+      links: [
+        {
+          id: "blog-1",
+          title: "Landing",
+          href: "/blog",
+        },
+        {
+          id: "blog-2",
+          title: "Latest Posts",
+          href: "/blog/posts",
+        },
+        {
+          id: "blog-3",
+          title: "Tutorials",
+          href: "/blog/posts?tag=tutorial",
+        },
+      ],
+    },
+    {
+      id: 2,
       title: "Services",
       links: [
         {
@@ -36,7 +57,7 @@ export const itemsConfig = {
       ],
     },
     {
-      id: 2,
+      id: 3,
       title: "Products",
       links: [
         {
@@ -58,26 +79,26 @@ export const itemsConfig = {
       ],
     },
     {
-      id: 3,
+      id: 4,
       title: "Pricing",
       links: [
         {
-          id: 1,
+          id: "pricing-1",
           title: "Hobby",
           href: "/hobby",
         },
         {
-          id: 2,
+          id: "pricing-2",
           title: "Individual",
           href: "/individual",
         },
         {
-          id: 3,
+          id: "pricing-3",
           title: "Team",
           href: "/team",
         },
         {
-          id: 4,
+          id: "pricing-4",
           title: "Enterprise",
           href: "/enterprise",
         },

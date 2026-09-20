@@ -11,6 +11,7 @@ const connectionConfig = {
   user: url.username,
   password: url.password,
   database: url.pathname.slice(1),
+  allowPublicKeyRetrieval: true,
 };
 
 const adapter = new PrismaMariaDb(connectionConfig);

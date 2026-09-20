@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
-import SectionTitle from "./SectionTitle";
+import SectionTitle from "../ui/SectionTitle";
 import { itemsConfig } from "@/config/itemsConfig";
 import ProjectCard from "../ProjectCard";
 

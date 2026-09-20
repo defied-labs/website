@@ -1,6 +1,6 @@
 import { IconCircleCheck } from "@tabler/icons-react";
 import { Terminal, TerminalLine } from "@/components/ui/terminal";
-import SectionTitle from "@/components/home/SectionTitle";
+import SectionTitle from "@/components/ui/SectionTitle";
 
 function StartSection() {
   return (

@@ -10,8 +10,25 @@ import {
 import { Button } from "@/components/ui/button";
 import { IconMenu, IconXFilled } from "@tabler/icons-react";
 import type { Dispatch, SetStateAction } from "react";
+import Link from "next/link";
 
 const navLinks = [
+  {
+    id: 0,
+    title: "Blog",
+    links: [
+      {
+        id: "blog-1",
+        title: "Latest Posts",
+        href: "/blog",
+      },
+      {
+        id: "blog-2",
+        title: "All Posts",
+        href: "/blog/posts",
+      },
+    ],
+  },
   {
     id: 1,
     title: "Services",
@@ -92,7 +109,7 @@ function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 mx-auto w-full lg:max-w-7xl flex items-center md:justify-between justify-evenly gap-6 px-10 py-4 sm:px-6 lg:px-8 bg-background/70 backdrop-blur-md lg:rounded-2xl lg:mt-5 box-border">
+    <header className="fixed inset-x-0 top-0 z-50 mx-auto w-full md:max-w-5xl flex items-center md:justify-between justify-evenly gap-6 p-4 bg-background/70 backdrop-blur-md md:rounded-2xl md:mt-5 box-border">
       <div className="whitespace-pre">
         <h1 className="text-xl font-bold">Defied</h1>
       </div>
@@ -100,11 +117,11 @@ function Header() {
         <HeaderLinks className="hidden md:flex" />
       </div>
       <div className="md:flex items-center gap-4 hidden">
-        <a href="/auth/magic-link">
+        <Link href="/auth/magic-link">
           <Button className="py-5.5 px-6 text-white text-[16px] font-semibold rounded-[10px] cursor-pointer tracking-tight box-border">
             Sign In
           </Button>
-        </a>
+        </Link>
       </div>
       <div className="md:hidden flex">
         <Button onClick={() => setIsOpen((o) => !o)}>
@@ -122,7 +139,7 @@ function HeaderLinks({ className }: { className?: string }) {
     <div className={cn("relative max-w-2xl", className)}>
       <Menu
         setActive={setActive}
-        className="mb-40 text-3xl uppercase font-bold lg:mb-0 lg:text-base lg:normal-case lg:font-normal"
+        className="mb-40 text-3xl uppercase font-bold md:mb-0 md:text-base md:normal-case md:font-normal"
       >
         {navLinks.map((navLink) => (
           <MenuItem
@@ -140,7 +157,7 @@ function HeaderLinks({ className }: { className?: string }) {
               )}
             >
               {navLink.links.map((link: any) => (
-                <>
+                <div key={link.id}>
                   {!link.src ? (
                     <HoveredLink key={link.id} href={link.href}>
                       {link.title}
@@ -154,7 +171,7 @@ function HeaderLinks({ className }: { className?: string }) {
                       src={link.src}
                     />
                   )}
-                </>
+                </div>
               ))}
             </div>
           </MenuItem>
@@ -174,7 +191,7 @@ function MobileNavbar({
   return (
     <div
       className={cn(
-        "fixed z-50 w-screen h-screen bg-background lg:hidden transition-all duration-1000 ease-in-out top-0 bottom-0",
+        "fixed z-50 w-screen h-screen bg-background md:hidden transition-all duration-1000 ease-in-out top-0 bottom-0",
         open ? "translate-x-0" : "translate-x-full",
       )}
     >

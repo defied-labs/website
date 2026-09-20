@@ -1,0 +1,18 @@
+model Post {
+  id           String   @id @default(cuid())
+  title        String   @db.Text
+  slug         String   @unique
+  excerpt      String?  @db.Text
+  content      String   @db.LongText
+  coverImage   String?  @db.Text
+  published    Boolean  @default(false)
+  authorId     String?
+  author       User?    @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  publishedAt  DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([authorId(length: 191)])
+  @@index([published])
+  @@map("post")
+}

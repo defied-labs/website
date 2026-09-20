@@ -1,0 +1,277 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@import "katex/dist/katex.min.css";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.6 0.1 185);
+  --primary-foreground: oklch(0.98 0.01 181);
+  --secondary: oklch(0.967 0.001 286.375);
+  --secondary-foreground: oklch(0.21 0.006 285.885);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.58 0.22 27);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.85 0.13 181);
+  --chart-2: oklch(0.78 0.13 182);
+  --chart-3: oklch(0.7 0.12 183);
+  --chart-4: oklch(0.6 0.1 185);
+  --chart-5: oklch(0.51 0.09 186);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.6 0.1 185);
+  --sidebar-primary-foreground: oklch(0.98 0.01 181);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+  --radius: 0.625rem;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: rgb(29, 182, 165);
+  --primary-foreground: oklch(0.28 0.04 193);
+  --secondary: oklch(0.274 0.006 286.033);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.371 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.85 0.13 181);
+  --chart-2: oklch(0.78 0.13 182);
+  --chart-3: oklch(0.7 0.12 183);
+  --chart-4: oklch(0.6 0.1 185);
+  --chart-5: oklch(0.51 0.09 186);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.78 0.13 182);
+  --sidebar-primary-foreground: oklch(0.28 0.04 193);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@theme inline {
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply font-sans bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+@layer utilities {
+  .font-serif {
+    font-family:
+      var(--font-lora), var(--font-serif), ui-serif, Georgia, Cambria,
+      "Times New Roman", Times, serif;
+  }
+
+  .font-lora {
+    font-family:
+      var(--font-lora), var(--font-serif), ui-serif, Georgia, Cambria,
+      "Times New Roman", Times, serif;
+  }
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.01em;
+  font-feature-settings:
+    "calt" 1,
+    "clig" 1,
+    "liga" 1;
+  font-variant-ligatures: contextual;
+}
+
+::selection {
+  background-color: var(--primary);
+  opacity: 0.5;
+  color: var(--secondary);
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s linear forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Syntax-highlighted code blocks (rendered article only — NOT the editor,
+   whose own ContentEditable styles must stay untouched). Prism token
+   classes are emitted server-side by lib/prism-setup.ts. */
+.prose pre {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  font-size: 0.875em;
+  line-height: 1.6;
+  background: rgb(20 20 25);
+  color: #ccc;
+}
+
+.prose pre code {
+  display: block;
+  white-space: pre;
+  padding: 1rem;
+  background: transparent;
+  color: inherit;
+}
+
+.prose pre .token.comment,
+.prose pre .token.block-comment,
+.prose pre .token.prolog,
+.prose pre .token.doctype,
+.prose pre .token.cdata {
+  color: #999;
+}
+.prose pre .token.punctuation {
+  color: #ccc;
+}
+.prose pre .token.tag,
+.prose pre .token.attr-name,
+.prose pre .token.namespace,
+.prose pre .token.deleted {
+  color: #e2777a;
+}
+.prose pre .token.function-name {
+  color: #6196cc;
+}
+.prose pre .token.boolean,
+.prose pre .token.number,
+.prose pre .token.function {
+  color: #f08d49;
+}
+.prose pre .token.property,
+.prose pre .token.class-name,
+.prose pre .token.constant,
+.prose pre .token.symbol {
+  color: #f8c555;
+}
+.prose pre .token.selector,
+.prose pre .token.important,
+.prose pre .token.atrule,
+.prose pre .token.keyword,
+.prose pre .token.builtin {
+  color: #cc99cd;
+}
+.prose pre .token.string,
+.prose pre .token.char,
+.prose pre .token.attr-value,
+.prose pre .token.regex,
+.prose pre .token.variable {
+  color: #7ec699;
+}
+.prose pre .token.operator,
+.prose pre .token.entity,
+.prose pre .token.url {
+  color: #67cdcc;
+}
+.prose pre .token.important,
+.prose pre .token.bold {
+  font-weight: bold;
+}
+
+.prose pre [data-line] {
+  padding-inline: 0.5rem;
+  border-inline-start: 2px solid transparent;
+}
+
+.prose pre [data-highlighted-line] {
+  background: rgb(255 255 255 / 0.06);
+  border-inline-start-color: var(--primary);
+}
+
+.prose code:not(pre code) {
+  background: var(--accent);
+  padding: 0.15em 0.35em;
+  border-radius: 0.35em;
+  font-size: 0.875em;
+}
+
+.prose code:not(pre code)::before,
+.prose code:not(pre code)::after {
+  content: "";
+}
+
+.prose .math-display {
+  overflow-x: auto;
+  padding: 0.5rem 0;
+}

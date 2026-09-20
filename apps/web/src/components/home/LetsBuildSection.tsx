@@ -1,5 +1,5 @@
 import Link from "next/link";
-import SectionTitle from "./SectionTitle";
+import SectionTitle from "../ui/SectionTitle";
 import { Button } from "@/components/ui/button";
 
 function LetsBuildSection() {
