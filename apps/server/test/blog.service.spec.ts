@@ -29,7 +29,23 @@ describe("BlogService Unit Tests", () => {
     excerpt: "Intro",
     content: "Content",
     coverImage: null,
+    status: "published",
     published: true,
+    seoTitle: null,
+    seoDescription: null,
+    seoImage: null,
+    canonicalUrl: null,
+    seoNoIndex: false,
+    categories: "[]",
+    tags: "[]",
+    seo: {
+      title: null,
+      description: null,
+      image: null,
+      canonicalUrl: null,
+      noIndex: false,
+    },
+    taxonomy: { categories: [], tags: [] },
     authorId: "user_1",
     publishedAt: new Date("2026-01-01"),
     createdAt: new Date("2026-01-01"),
@@ -54,13 +70,13 @@ describe("BlogService Unit Tests", () => {
     expect(result).toEqual([mockPost]);
   });
 
-  it("listPublishedPosts should query posts where published is true", async () => {
+  it("listPublishedPosts should query posts where status is published", async () => {
     mockPrisma.post.findMany.mockResolvedValueOnce([mockPost]);
 
     const result = await service.listPublishedPosts();
 
     expect(mockPrisma.post.findMany).toHaveBeenCalledWith({
-      where: { published: true },
+      where: { status: "published" },
       orderBy: [{ publishedAt: "desc", createdAt: "desc" }],
       include: { author: { select: { id: true, name: true, email: true } } },
     });
@@ -99,7 +115,7 @@ describe("BlogService Unit Tests", () => {
     );
 
     expect(mockPrisma.post.findFirst).toHaveBeenCalledWith({
-      where: { slug: "understanding-antigravity", published: true },
+      where: { slug: "understanding-antigravity", status: "published" },
       include: { author: { select: { id: true, name: true, email: true } } },
     });
     expect(result).toEqual(mockPost);
@@ -126,7 +142,7 @@ describe("BlogService Unit Tests", () => {
       data: expect.objectContaining({
         title: "New Post",
         slug: "new-post",
-        published: true,
+        status: "published",
         publishedAt: expect.any(Date),
       }),
       include: { author: { select: { id: true, name: true, email: true } } },
@@ -152,7 +168,7 @@ describe("BlogService Unit Tests", () => {
 
     expect(mockPrisma.post.create).toHaveBeenCalledWith({
       data: expect.objectContaining({
-        published: false,
+        status: "draft",
         publishedAt: null,
       }),
       include: { author: { select: { id: true, name: true, email: true } } },

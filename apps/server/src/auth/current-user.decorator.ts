@@ -5,6 +5,7 @@ export interface CurrentUserPayload {
   name?: string | null;
   email?: string | null;
   image?: string | null;
+  role?: string;
   [key: string]: any;
 }
 

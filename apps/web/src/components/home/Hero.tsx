@@ -57,7 +57,7 @@ function Hero() {
         <div className="flex gap-4 mt-6 z-10">
           <Link className="w-fit" href="/auth/magic-link">
             <Button className="bg-primary text-white py-5.5 px-6 text-[16px] font-semibold rounded-[10px] cursor-pointer tracking-tight ">
-              Get Started
+              Join the closed beta
             </Button>
           </Link>
 
@@ -68,7 +68,7 @@ function Hero() {
             Learn More
           </Button>
         </div>
-        <div className="flex flex-wrap md:gap-14 gap-8 justify-center pt-12">
+        {/* <div className="flex flex-wrap md:gap-14 gap-8 justify-center pt-12">
           <div className="">
             <h3 className="lg:text-[40px] text-2xl font-bold">12k+</h3>
             <p className="text-muted-foreground text-sm font-semibold">
@@ -87,7 +87,7 @@ function Hero() {
               npm installs / month
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

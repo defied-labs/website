@@ -1,5 +1,5 @@
-import { renderBlogContent } from "@/lib/blog-content";
-import { renderLexicalBlogContent } from "@/lib/lexical-blog";
+"use client";
+import { BlogContentRenderer } from "./BlogContentRenderer";
 import BorderGlow from "@/components/BorderGlow";
 import { IconSparkles2Filled } from "@tabler/icons-react";
 
@@ -16,8 +16,7 @@ export function BlogPostArticle({
   content,
   publishedAt,
 }: BlogPostArticleProps) {
-  const renderedContent =
-    renderLexicalBlogContent(content) ?? renderBlogContent(content);
+  
 
   return (
     <article className="prose prose-neutral dark:prose-invert max-w-none">
@@ -53,7 +52,7 @@ export function BlogPostArticle({
           </div>
         </BorderGlow>
       ) : null}
-      <div dangerouslySetInnerHTML={{ __html: renderedContent }} />
+      <BlogContentRenderer content={content} />
     </article>
   );
 }

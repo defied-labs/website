@@ -19,12 +19,23 @@ export default async function PostPage({
   }
   if (!blogPost) notFound();
 
+  // Test content with actual LaTeX math
+  const testContent = `[
+    {"id":"1","type":"heading","props":{"level":1},"content":[{"type":"text","text":"LaTeX Math Test"}]},
+    {"id":"2","type":"mathBlock","props":{"latex":"E = mc^2"},"content":[]},
+    {"id":"3","type":"paragraph","props":{},"content":[{"type":"text","text":"Einstein's famous equation: "},{"type":"math","props":{"latex":"E = mc^2"},"styles":{}}]},
+    {"id":"4","type":"mathBlock","props":{"latex":"x = \\\\frac{-b \\\\pm \\\\sqrt{b^2-4ac}}{2a}"},"content":[]},
+    {"id":"5","type":"paragraph","props":{},"content":[{"type":"text","text":"Quadratic formula: "},{"type":"math","props":{"latex":"x = \\\\frac{-b \\\\pm \\\\sqrt{b^2-4ac}}{2a}"},"styles":{}}]}
+  ]`;
+
   return (
-    <BlogPostArticle
-      title={blogPost.title}
-      excerpt={blogPost.excerpt}
-      content={blogPost.content}
-      publishedAt={blogPost.publishedAt}
-    />
+    <>
+      <BlogPostArticle
+        title={blogPost.title}
+        excerpt={blogPost.excerpt}
+        content={testContent}
+        publishedAt={blogPost.publishedAt}
+      />
+    </>
   );
 }

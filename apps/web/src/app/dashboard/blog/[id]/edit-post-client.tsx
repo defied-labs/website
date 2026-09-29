@@ -12,7 +12,9 @@ export function EditPostClient({ post }: { post: BlogPost }) {
     excerpt: post.excerpt,
     content: post.content,
     coverImage: post.coverImage,
-    published: post.published,
+    status: post.status,
+    seo: post.seo,
+    taxonomy: post.taxonomy,
   });
 
   return (
@@ -36,7 +38,9 @@ export function EditPostClient({ post }: { post: BlogPost }) {
             excerpt: post.excerpt ?? "",
             content: post.content,
             coverImage: post.coverImage ?? "",
-            published: post.published,
+            status: post.status,
+            seo: post.seo,
+            taxonomy: post.taxonomy,
           }}
           setPreview={setPreview}
         />

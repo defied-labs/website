@@ -1,3 +1,5 @@
+import type { ContentStatus, SeoMetadata, Taxonomy } from "@defied/content";
+
 export interface BlogPost {
   id: string;
   title: string;
@@ -5,7 +7,9 @@ export interface BlogPost {
   excerpt: string | null;
   content: string;
   coverImage: string | null;
-  published: boolean;
+  status: ContentStatus;
+  seo: SeoMetadata;
+  taxonomy: Taxonomy;
   authorId: string | null;
   publishedAt: string | null;
   createdAt: string;
@@ -19,5 +23,20 @@ export interface PostFormValues {
   excerpt: string | null;
   content: string;
   coverImage: string | null;
-  published: boolean;
+  status: ContentStatus;
+  seo: SeoMetadata;
+  taxonomy: Taxonomy;
+}
+
+export function getInitialPostFormValues(initial?: Partial<PostFormValues> & { id: string }): PostFormValues {
+  return {
+    title: initial?.title ?? "",
+    slug: initial?.slug ?? "",
+    excerpt: initial?.excerpt ?? "",
+    content: initial?.content ?? "[]",
+    coverImage: initial?.coverImage ?? "",
+    status: initial?.status ?? "draft",
+    seo: initial?.seo ?? { noIndex: false },
+    taxonomy: initial?.taxonomy ?? { categories: [], tags: [] },
+  };
 }

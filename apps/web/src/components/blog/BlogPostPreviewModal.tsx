@@ -23,6 +23,9 @@ function BlogPostPreviewModal({
     title: post.title,
     excerpt: null,
     content: post.content,
+    status: "draft" as const,
+    seo: { noIndex: true },
+    taxonomy: { categories: [], tags: [] },
   };
   const title = String(postToDisplay.title);
   const excerpt =

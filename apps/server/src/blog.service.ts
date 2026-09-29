@@ -1,10 +1,11 @@
 import { Injectable } from "@nestjs/common";
+import {
+  blogPostSchema,
+  type ContentStatus,
+  type SeoMetadata,
+  type Taxonomy,
+} from "@defied/content";
 import prisma from "@defied/db";
-
-export const postOrderBy = {
-  publishedAt: "desc" as const,
-  createdAt: "desc" as const,
-};
 
 export interface PostInput {
   title: string;
@@ -12,7 +13,10 @@ export interface PostInput {
   excerpt?: string | null;
   content: string;
   coverImage?: string | null;
-  published: boolean;
+  status?: ContentStatus;
+  published?: boolean;
+  seo?: SeoMetadata;
+  taxonomy?: Taxonomy;
   authorId?: string | null;
 }
 
@@ -23,12 +27,25 @@ type PostWithAuthor = {
   excerpt: string | null;
   content: string;
   coverImage: string | null;
+  status: ContentStatus;
   published: boolean;
+  seo: SeoMetadata;
+  taxonomy: Taxonomy;
   authorId: string | null;
   publishedAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
   author: { id: string; name: string | null; email: string | null } | null;
+};
+
+type PersistedPost = Omit<PostWithAuthor, "seo" | "taxonomy"> & {
+  seoTitle: string | null;
+  seoDescription: string | null;
+  seoImage: string | null;
+  canonicalUrl: string | null;
+  seoNoIndex: boolean;
+  categories: string | null;
+  tags: string | null;
 };
 
 @Injectable()
@@ -37,90 +54,156 @@ export class BlogService {
     select: { id: true, name: true, email: true },
   } as const;
 
-  listPosts(): Promise<PostWithAuthor[]> {
-    return prisma.post.findMany({
-      orderBy: [postOrderBy],
-      include: { author: this.author },
-    });
+  private toContentPost(post: PersistedPost): PostWithAuthor {
+    const parseList = (value: string | null) => {
+      try {
+        const parsed = JSON.parse(value ?? "[]");
+        return Array.isArray(parsed)
+          ? parsed.filter((item): item is string => typeof item === "string")
+          : [];
+      } catch {
+        return [];
+      }
+    };
+
+    return {
+      ...post,
+      seo: {
+        title: post.seoTitle,
+        description: post.seoDescription,
+        canonicalUrl: post.canonicalUrl,
+        image: post.seoImage ?? post.coverImage,
+        noIndex: post.seoNoIndex,
+      },
+      published: post.status === "published",
+      taxonomy: {
+        categories: parseList(post.categories),
+        tags: parseList(post.tags),
+      },
+    };
   }
 
-  listPublishedPosts(): Promise<PostWithAuthor[]> {
-    return prisma.post.findMany({
-      where: { published: true },
-      orderBy: [postOrderBy],
+  async listPosts(): Promise<PostWithAuthor[]> {
+    const posts = await prisma.post.findMany({
+      orderBy: [{ publishedAt: "desc" }, { createdAt: "desc" }],
       include: { author: this.author },
     });
+    return posts.map((post) => this.toContentPost(post as PersistedPost));
   }
 
-  getPostBySlug(slug: string): Promise<PostWithAuthor | null> {
-    return prisma.post.findUnique({
+  async listPublishedPosts(): Promise<PostWithAuthor[]> {
+    const posts = await prisma.post.findMany({
+      where: { status: "published" },
+      orderBy: [{ publishedAt: "desc" }, { createdAt: "desc" }],
+      include: { author: this.author },
+    });
+    return posts.map((post) => this.toContentPost(post as PersistedPost));
+  }
+
+  async getPostBySlug(slug: string): Promise<PostWithAuthor | null> {
+    const post = await prisma.post.findUnique({
       where: { slug },
       include: { author: this.author },
     });
+    return post ? this.toContentPost(post as PersistedPost) : null;
   }
 
-  getPostById(id: string): Promise<PostWithAuthor | null> {
-    return prisma.post.findUnique({
+  async getPostById(id: string): Promise<PostWithAuthor | null> {
+    const post = await prisma.post.findUnique({
       where: { id },
       include: { author: this.author },
     });
+    return post ? this.toContentPost(post as PersistedPost) : null;
   }
 
-  getPublishedPostBySlug(slug: string): Promise<PostWithAuthor | null> {
-    return prisma.post.findFirst({
-      where: { slug, published: true },
+  async getPublishedPostBySlug(slug: string): Promise<PostWithAuthor | null> {
+    const post = await prisma.post.findFirst({
+      where: { slug, status: "published" },
       include: { author: this.author },
     });
+    return post ? this.toContentPost(post as PersistedPost) : null;
   }
 
-  createPost(input: PostInput): Promise<PostWithAuthor> {
-    return prisma.post.create({
+  async createPost(input: PostInput): Promise<PostWithAuthor> {
+    console.log("[BlogService.createPost] Input:", JSON.stringify(input, null, 2));
+    const content = blogPostSchema.parse({
+      kind: "blog-post",
+      ...input,
+      status: input.status ?? (input.published ? "published" : "draft"),
+    });
+    console.log("[BlogService.createPost] Parsed content:", JSON.stringify(content, null, 2));
+    const post = await prisma.post.create({
       data: {
-        title: input.title,
-        slug: input.slug,
-        excerpt: input.excerpt ?? null,
-        content: input.content,
-        coverImage: input.coverImage ?? null,
-        published: input.published,
-        authorId: input.authorId ?? null,
-        publishedAt: input.published ? new Date() : null,
+        title: content.title,
+        slug: content.slug,
+        excerpt: content.excerpt ?? null,
+        content: content.content,
+        coverImage: content.coverImage ?? null,
+        status: content.status,
+        seoTitle: content.seo.title ?? null,
+        seoDescription: content.seo.description ?? null,
+        seoImage: content.seo.image ?? content.coverImage ?? null,
+        canonicalUrl: content.seo.canonicalUrl ?? null,
+        seoNoIndex: content.seo.noIndex,
+        categories: JSON.stringify(content.taxonomy.categories),
+        tags: JSON.stringify(content.taxonomy.tags),
+        authorId: content.authorId ?? null,
+        publishedAt: content.status === "published" ? new Date() : null,
       },
       include: {
         author: { select: { id: true, name: true, email: true } },
       },
     });
+    return this.toContentPost(post as PersistedPost);
   }
 
   async updatePost(id: string, input: PostInput): Promise<PostWithAuthor> {
+    console.log("[BlogService.updatePost] Input:", JSON.stringify(input, null, 2));
     const existing = await this.getPostById(id);
+    const content = blogPostSchema.parse({
+      kind: "blog-post",
+      ...input,
+      status: input.status ?? (input.published ? "published" : "draft"),
+    });
+    console.log("[BlogService.updatePost] Parsed content:", JSON.stringify(content, null, 2));
     const now = new Date();
-    const publishedAt = input.published ? (existing?.publishedAt ?? now) : null;
+    const publishedAt =
+      content.status === "published" ? (existing?.publishedAt ?? now) : null;
 
-    return prisma.post.update({
+    const post = await prisma.post.update({
       where: { id },
       data: {
-        title: input.title,
-        slug: input.slug,
-        excerpt: input.excerpt ?? null,
-        content: input.content,
-        coverImage: input.coverImage ?? null,
-        published: input.published,
-        authorId: input.authorId ?? null,
+        title: content.title,
+        slug: content.slug,
+        excerpt: content.excerpt ?? null,
+        content: content.content,
+        coverImage: content.coverImage ?? null,
+        status: content.status,
+        seoTitle: content.seo.title ?? null,
+        seoDescription: content.seo.description ?? null,
+        seoImage: content.seo.image ?? content.coverImage ?? null,
+        canonicalUrl: content.seo.canonicalUrl ?? null,
+        seoNoIndex: content.seo.noIndex,
+        categories: JSON.stringify(content.taxonomy.categories),
+        tags: JSON.stringify(content.taxonomy.tags),
+        authorId: content.authorId ?? null,
         publishedAt,
       },
       include: {
         author: { select: { id: true, name: true, email: true } },
       },
     });
+    return this.toContentPost(post as PersistedPost);
   }
 
-  deletePost(id: string): Promise<PostWithAuthor> {
-    return prisma.post.delete({
+  async deletePost(id: string): Promise<PostWithAuthor> {
+    const post = await prisma.post.delete({
       where: { id },
       include: {
         author: { select: { id: true, name: true, email: true } },
       },
     });
+    return this.toContentPost(post as PersistedPost);
   }
 
   async stats(): Promise<{
@@ -130,8 +213,8 @@ export class BlogService {
   }> {
     const [total, published, drafts] = await Promise.all([
       prisma.post.count(),
-      prisma.post.count({ where: { published: true } }),
-      prisma.post.count({ where: { published: false } }),
+      prisma.post.count({ where: { status: "published" } }),
+      prisma.post.count({ where: { status: { in: ["draft", "review"] } } }),
     ]);
     return { total, published, drafts };
   }

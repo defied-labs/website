@@ -6,7 +6,7 @@ import Stripe from "stripe";
 // line up with the installed `stripe` package. Pinning a literal here goes stale
 // on every SDK bump and breaks type-checking. Pin one explicitly only if you
 // need to lock behavior, and bump it whenever you upgrade `stripe`.
-export const stripe = new Stripe(env.STRIPE_SECRET_KEY);
+export const stripe = new Stripe(env.STRIPE_SECRET_KEY!);
 
 export async function createCheckoutSession(params: {
   priceId: string;
@@ -65,6 +65,6 @@ export async function constructWebhookEvent(
   return stripe.webhooks.constructEvent(
     payload,
     signature,
-    env.STRIPE_WEBHOOK_SECRET,
+    env.STRIPE_WEBHOOK_SECRET!,
   );
 }

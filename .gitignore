@@ -1,4 +1,8 @@
 node_modules
+.fallow
+.github
+.turbo
+.vscode
 
 */**/.pnp
 */**/.pnp.js

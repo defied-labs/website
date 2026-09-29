@@ -16,7 +16,10 @@ describe("Blog API Endpoints (Controller Integration)", () => {
     excerpt: "Intro to antigravity",
     content: "# Antigravity is amazing",
     coverImage: "https://example.com/cover.png",
+    status: "published" as const,
     published: true,
+    seo: { noIndex: false },
+    taxonomy: { categories: [], tags: [] },
     authorId: "user_1",
     publishedAt: new Date(),
     createdAt: new Date(),
@@ -83,6 +86,7 @@ describe("Blog API Endpoints (Controller Integration)", () => {
       const draftPost = {
         ...mockPost,
         id: "post_2",
+        status: "draft" as const,
         published: false,
         publishedAt: null,
       };

@@ -29,7 +29,9 @@ export const Pages: CollectionConfig = {
       type: "select",
       options: [
         { label: "Draft", value: "draft" },
+        { label: "In review", value: "review" },
         { label: "Published", value: "published" },
+        { label: "Archived", value: "archived" },
       ],
       defaultValue: "draft",
       admin: {
@@ -59,7 +61,32 @@ export const Pages: CollectionConfig = {
           type: "textarea",
           label: "Meta Description",
         },
+        {
+          name: "image",
+          type: "text",
+          label: "Meta Image URL",
+        },
+        {
+          name: "canonicalUrl",
+          type: "text",
+          label: "Canonical URL",
+        },
+        {
+          name: "noIndex",
+          type: "checkbox",
+          defaultValue: false,
+        },
       ],
+    },
+    {
+      name: "categories",
+      type: "array",
+      fields: [{ name: "name", type: "text", required: true }],
+    },
+    {
+      name: "tags",
+      type: "array",
+      fields: [{ name: "name", type: "text", required: true }],
     },
   ],
 };

@@ -106,7 +106,14 @@ CREATE TABLE `post` (
     `excerpt` TEXT NULL,
     `content` LONGTEXT NOT NULL,
     `coverImage` TEXT NULL,
-    `published` BOOLEAN NOT NULL DEFAULT false,
+    `status` ENUM('draft', 'review', 'published', 'archived') NOT NULL DEFAULT 'draft',
+    `seoTitle` TEXT NULL,
+    `seoDescription` TEXT NULL,
+    `seoImage` TEXT NULL,
+    `canonicalUrl` TEXT NULL,
+    `seoNoIndex` BOOLEAN NOT NULL DEFAULT false,
+    `categories` TEXT NULL,
+    `tags` TEXT NULL,
     `authorId` VARCHAR(191) NULL,
     `publishedAt` DATETIME(3) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -114,7 +121,7 @@ CREATE TABLE `post` (
 
     UNIQUE INDEX `post_slug_key`(`slug`),
     INDEX `post_authorId_idx`(`authorId`(191)),
-    INDEX `post_published_idx`(`published`),
+    INDEX `post_status_idx`(`status`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

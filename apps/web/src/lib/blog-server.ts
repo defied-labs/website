@@ -5,7 +5,9 @@ import type { BlogPost } from "./blog-types";
 
 export type { BlogPost } from "./blog-types";
 
-const apiUrl = process.env.INTERNAL_SERVER_URL ?? "http://localhost:3005";
+import { env } from "@defied/env/web";
+
+const apiUrl = env.INTERNAL_SERVER_URL;
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${apiUrl}${path}`, {

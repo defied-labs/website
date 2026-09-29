@@ -39,6 +39,20 @@ Open this link: [defied.dev](https://defied.sgattix.online)
     pnpm dev
     ```
 
+## Environment configuration
+
+Each app and package has an `.env.example` that documents its contract. Copy the
+example into the relevant workspace directory and keep secrets out of git.
+
+The server and web app support `APP_ENV=development`, `staging`, or `production`.
+They load `.env.<APP_ENV>` first and then `.env` (the web app also checks
+`.env.local`). Missing required values fail startup or build with a validation
+error; there are no production fallbacks for secrets, URLs, or database targets.
+
+The Nest server logs the selected environment and non-secret provider endpoints at
+startup. Its anonymous operational checks are available at `/health`,
+`/health/db`, `/health/auth`, and `/health/mail`.
+
 ## How it works
 The landing page uses WebGL for interactive 3D graphics, while the documentation site is powered by Fumadocs, which allows for easy content management and MDX support. The backend is built with NestJS and Prisma, providing a robust API for the frontend to consume.
 

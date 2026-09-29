@@ -57,13 +57,13 @@ export default async function BlogAdminPage() {
                     </p>
                   </td>
                   <td className="px-4 py-3">
-                    {post.published ? (
+                    {post.status === "published" ? (
                       <span className="inline-block rounded-full bg-primary/15 text-primary px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider">
                         Published
                       </span>
                     ) : (
                       <span className="inline-block rounded-full bg-muted text-muted-foreground px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider">
-                        Draft
+                        {post.status}
                       </span>
                     )}
                   </td>

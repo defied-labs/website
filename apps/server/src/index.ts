@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { NestFactory } from "@nestjs/core";
-import { env } from "@defied/env/server";
+import { env, logConfigSummary } from "@defied/env/server";
 import { authHandler } from "@defied/auth/auth.handler";
 
 import { AppModule } from "./app.module";
@@ -8,6 +8,7 @@ import { AppModule } from "./app.module";
 import express from "express";
 
 async function bootstrap() {
+  logConfigSummary();
   const app = await NestFactory.create(AppModule, {
     bodyParser: false,
   });
@@ -33,8 +34,8 @@ async function bootstrap() {
     credentials: true,
   });
 
-  await app.listen(3005);
-  console.log("Server is running on http://localhost:3005");
+  await app.listen(env.SERVER_PORT);
+  console.log(`Server is running on http://localhost:${env.SERVER_PORT}`);
 }
 
 bootstrap();

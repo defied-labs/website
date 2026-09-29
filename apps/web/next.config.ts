@@ -1,5 +1,4 @@
-import "dotenv/config";
-import "@defied/env/web";
+import { env } from "@defied/env/web";
 import type { NextConfig } from "next";
 import nextra from "nextra";
 
@@ -40,8 +39,7 @@ const nextConfig: NextConfig = {
     ],
   },
   async rewrites() {
-    const serverUrl =
-      process.env.INTERNAL_SERVER_URL || "http://localhost:3005";
+    const serverUrl = env.INTERNAL_SERVER_URL;
     return [
       {
         source: "/api/auth/:path*",
@@ -50,6 +48,10 @@ const nextConfig: NextConfig = {
       {
         source: "/api/admin/blog/:path*",
         destination: `${serverUrl}/api/admin/blog/:path*`,
+      },
+      {
+        source: "/api/profile/:path*",
+        destination: `${serverUrl}/api/profile/:path*`,
       },
       {
         source: "/api/blog/:path*",

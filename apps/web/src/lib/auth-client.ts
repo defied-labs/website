@@ -47,7 +47,21 @@ export const authClient = {
   },
 
   async signInWithZitadel(callbackUrl: string = "/dashboard") {
-    return `/api/auth/signin/zitadel?callbackUrl=${encodeURIComponent(callbackUrl)}`;
+    const csrfToken = await this.getCsrfToken();
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "/api/auth/signin/zitadel";
+
+    for (const [name, value] of Object.entries({ csrfToken, callbackUrl })) {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = name;
+      input.value = value;
+      form.appendChild(input);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
   },
 
   async requestMagicLink(email: string, callbackUrl: string = "/dashboard") {

@@ -5,7 +5,14 @@ model Post {
   excerpt      String?  @db.Text
   content      String   @db.LongText
   coverImage   String?  @db.Text
-  published    Boolean  @default(false)
+  status       ContentStatus @default(draft)
+  seoTitle     String?  @db.Text
+  seoDescription String? @db.Text
+  seoImage     String?  @db.Text
+  canonicalUrl String?  @db.Text
+  seoNoIndex   Boolean  @default(false)
+  categories   String?  @db.Text
+  tags         String?  @db.Text
   authorId     String?
   author       User?    @relation(fields: [authorId], references: [id], onDelete: SetNull)
   publishedAt  DateTime?
@@ -13,6 +20,13 @@ model Post {
   updatedAt    DateTime @updatedAt
 
   @@index([authorId(length: 191)])
-  @@index([published])
+  @@index([status])
   @@map("post")
+}
+
+enum ContentStatus {
+  draft
+  review
+  published
+  archived
 }

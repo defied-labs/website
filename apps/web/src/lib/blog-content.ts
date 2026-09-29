@@ -49,6 +49,11 @@ const allowedTags = [
   "mtext",
   "mspace",
   "annotation",
+  // KaTeX tags
+  "mn",
+  "mo",
+  "mi",
+  "mspace",
 ];
 
 const globalAttributes = [
@@ -59,6 +64,45 @@ const globalAttributes = [
   "data-language",
   "data-highlight-language",
   "data-theme",
+  // KaTeX specific attributes
+  "xmlns",
+  "display",
+  "xmlns:xlink",
+  "xlink:href",
+  "xml:space",
+  "font-family",
+  "font-size",
+  "font-weight",
+  "font-style",
+  "text-decoration",
+  "vertical-align",
+  "text-align",
+  "margin",
+  "padding",
+  "border",
+  "width",
+  "height",
+  "min-width",
+  "max-width",
+  "min-height",
+  "max-height",
+  "overflow",
+  "vertical-align",
+  "baseline",
+  "text-anchor",
+  "dominant-baseline",
+  "text-rendering",
+  "shape-rendering",
+  "fill",
+  "stroke",
+  "stroke-width",
+  "stroke-linecap",
+  "stroke-linejoin",
+  "fill-opacity",
+  "stroke-opacity",
+  "opacity",
+  "transform",
+  "transform-origin",
 ];
 
 const allowedAttributes = {
@@ -90,8 +134,42 @@ export function sanitizeBlogHtml(html: string) {
         tagName,
         attribs: { ...attribs, rel: "noopener noreferrer nofollow" },
       }),
+      // Strip inline styles from Lexical tables — our CSS handles them via variables
+      table: (tagName, attribs) => ({
+        tagName,
+        attribs: omitKeys(attribs, ["style"]),
+      }),
+      th: (tagName, attribs) => ({
+        tagName,
+        attribs: omitKeys(attribs, ["style"]),
+      }),
+      td: (tagName, attribs) => ({
+        tagName,
+        attribs: omitKeys(attribs, ["style"]),
+      }),
+      tr: (tagName, attribs) => ({
+        tagName,
+        attribs: omitKeys(attribs, ["style"]),
+      }),
+      tbody: (tagName, attribs) => ({
+        tagName,
+        attribs: omitKeys(attribs, ["style"]),
+      }),
+      thead: (tagName, attribs) => ({
+        tagName,
+        attribs: omitKeys(attribs, ["style"]),
+      }),
     },
   });
+}
+
+function omitKeys<T extends Record<string, unknown>>(
+  obj: T,
+  keys: string[],
+): T {
+  const out = { ...obj };
+  for (const k of keys) delete out[k];
+  return out;
 }
 
 export function isLexicalBlogContent(content: string) {
@@ -127,6 +205,15 @@ export function renderBlogContent(content: string) {
 export function renderMathInHtml(html: string) {
   if (typeof document === "undefined") return html;
 
+  console.log("[renderMathInHtml] Input HTML length:", html.length);
+  console.log("[renderMathInHtml] Contains $$:", /\$\$/.test(html));
+  console.log("[renderMathInHtml] Contains $:", /\$[^$]/.test(html));
+  console.log("[renderMathInHtml] Contains math tags:", /<math/.test(html));
+  console.log("[renderMathInHtml] Contains katex:", /katex/.test(html));
+  console.log("[renderMathInHtml] Contains math-display:", /math-display/.test(html));
+  console.log("[renderMathInHtml] Contains math-inline:", /math-inline/.test(html));
+  console.log("[renderMathInHtml] Sample HTML:", html.substring(0, 500));
+  
   const container = document.createElement("div");
   container.innerHTML = html;
 

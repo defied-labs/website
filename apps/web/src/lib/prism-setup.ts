@@ -17,7 +17,7 @@ import "prismjs/components/prism-java";
 import "prismjs/components/prism-c";
 import "prismjs/components/prism-cpp";
 
-export default Prism;
+Prism;
 
 // Language detection fallback for legacy code blocks saved without a
 // `language` field (e.g. imported via markdown where fence info was dropped).
@@ -43,7 +43,7 @@ const LANGUAGE_PATTERNS: Array<[string, RegExp]> = [
   ["cpp", /\b(std::|#include\s*<\w+>|cout\s*<<)/],
 ];
 
-export function detectCodeLanguage(code: string): string | undefined {
+function detectCodeLanguage(code: string): string | undefined {
   const sample = code.slice(0, 2000);
   for (const [language, pattern] of LANGUAGE_PATTERNS) {
     if (pattern.test(sample)) return language;

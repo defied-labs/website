@@ -11,10 +11,11 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { AuthGuard } from "./auth/auth.guard";
+import { AdminGuard } from "./auth/admin.guard";
 import { BlogService, type PostInput } from "./blog.service";
 
 @Controller("api/admin/blog")
-@UseGuards(AuthGuard)
+@UseGuards(AuthGuard, AdminGuard)
 export class BlogController {
   constructor(@Inject(BlogService) private readonly blogService: BlogService) {}
 
@@ -44,11 +45,13 @@ export class BlogController {
 
   @Post()
   create(@Body() input: PostInput) {
+    console.log("[BlogController.create] Received input:", JSON.stringify(input, null, 2));
     return this.blogService.createPost(input);
   }
 
   @Patch(":id")
   async update(@Param("id") id: string, @Body() input: PostInput) {
+    console.log("[BlogController.update] Received input:", JSON.stringify(input, null, 2));
     const existing = await this.blogService.getPostById(id);
     if (!existing) throw new NotFoundException("Post not found");
     return this.blogService.updatePost(id, input);

@@ -1,6 +1,7 @@
 import { sqliteAdapter } from "@payloadcms/db-sqlite";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { buildConfig } from "payload";
+import { env } from "@defied/env/web";
 
 import { Media } from "./payload/collections/Media";
 import { Pages } from "./payload/collections/Pages";
@@ -14,12 +15,12 @@ export default buildConfig({
   collections: [Users, Media, Pages],
 
   // Secret for encryption (should be a complex and secure string)
-  secret: process.env.PAYLOAD_SECRET || "",
+  secret: env.PAYLOAD_SECRET,
 
   // Database adapter
   db: sqliteAdapter({
     client: {
-      url: process.env.DATABASE_URL || "file:./payload.db",
+      url: env.DATABASE_URL,
     },
   }),
 

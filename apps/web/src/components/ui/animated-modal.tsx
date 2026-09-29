@@ -17,7 +17,7 @@ interface ModalContextType {
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
-export const ModalProvider = ({ children }: { children: ReactNode }) => {
+const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -27,7 +27,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useModal = () => {
+const useModal = () => {
   const context = useContext(ModalContext);
   if (!context) {
     throw new Error("useModal must be used within a ModalProvider");
@@ -157,7 +157,7 @@ export const ModalContent = ({
   );
 };
 
-export const ModalFooter = ({
+const ModalFooter = ({
   children,
   className,
 }: {
@@ -224,7 +224,7 @@ const CloseIcon = () => {
 
 // Hook to detect clicks outside of a component.
 // Add it in a separate file, I've added here for simplicity
-export const useOutsideClick = (
+const useOutsideClick = (
   ref: React.RefObject<HTMLDivElement | null>,
   callback: Function,
 ) => {
