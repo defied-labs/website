@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import type React from "react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -25,6 +25,7 @@ export const MenuItem = ({
   children?: React.ReactNode;
 }) => {
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: TODO hover-only menu, not keyboard accessible
     <div onMouseEnter={() => setActive(item)} className="relative ">
       <motion.p
         transition={{ duration: 0.3 }}

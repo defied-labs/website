@@ -61,6 +61,7 @@ function Field({
     "w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15";
 
   return (
+    // biome-ignore lint/a11y/noLabelWithoutControl: wraps the input or textarea below
     <label className="block space-y-2">
       <span className="text-sm font-medium">
         {label}
@@ -141,10 +142,10 @@ export default function OnboardingForm() {
     <main className="min-h-screen flex justify-center items-center">
       <div className="mx-auto grid w-full max-w-5xl overflow-hidden rounded-3xl border border-border bg-card shadow-sm lg:grid-cols-[0.8fr_1.2fr]">
         <aside className="bg-primary p-8 text-primary-foreground sm:p-12">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] opacity-70">
-            Defied open beta
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] opacity-70 font-mono">
+            // Defied open beta
           </p>
-          <h1 className="mt-16 max-w-xs text-4xl font-semibold leading-8">
+          <h1 className="mt-16 max-w-xs text-4xl font-semibold leading-8 font-lora">
             Let&apos;s make this useful from day one.
           </h1>
           <p className="mt-5 max-w-sm text-sm leading-6 opacity-80">
@@ -173,7 +174,7 @@ export default function OnboardingForm() {
         </aside>
 
         <section className="p-6 sm:p-12">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary font-mono">
             {steps[step].eyebrow}
           </p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight">

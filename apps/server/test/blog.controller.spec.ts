@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { BlogController, PublicBlogController } from "../src/blog.controller";
-import { BlogService, type PostInput } from "../src/blog.service";
+import type { BlogService, PostInput } from "../src/blog.service";
 import { NotFoundException } from "@nestjs/common";
 
 describe("Blog API Endpoints (Controller Integration)", () => {

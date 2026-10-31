@@ -13,6 +13,8 @@
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
+    "lint": "biome lint",
+    "lint:fix": "biome lint --write",
     "check-types": "turbo check-types",
     "validate": "node scripts/validate-workspace.mjs",
     "test": "turbo test",
@@ -36,6 +38,7 @@
     "zod": "catalog:"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.5.15",
     "@defied/config": "workspace:^",
     "@types/node": "catalog:",
     "@vitest/coverage-v8": "^5.0.1",

@@ -38,7 +38,7 @@ function buildBoxShadow(glowColor: string, intensity: number): string {
   }).join(', ');
 }
 
-function easeOutCubic(x: number) { return 1 - Math.pow(1 - x, 3); }
+function easeOutCubic(x: number) { return 1 - (1 - x) ** 3; }
 function easeInCubic(x: number) { return x * x * x; }
 
 interface AnimateOpts {

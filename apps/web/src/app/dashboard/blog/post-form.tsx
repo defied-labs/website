@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -58,7 +59,11 @@ export function PostForm({
     e.preventDefault();
     setPending(true);
     try {
-      console.log("[handleSubmit] Saving form:", { title: form.title, contentLength: form.content?.length, contentPreview: form.content?.slice(0, 100) });
+      console.log("[handleSubmit] Saving form:", {
+        title: form.title,
+        contentLength: form.content?.length,
+        contentPreview: form.content?.slice(0, 100),
+      });
       const url =
         mode === "create"
           ? "/api/admin/blog"
@@ -70,10 +75,17 @@ export function PostForm({
         body: JSON.stringify(form),
       });
       const responseText = await res.text();
-      console.log("[handleSubmit] Response status:", res.status, "body:", responseText);
-      const data = JSON.parse(responseText).catch(() => null);
+      console.log(
+        "[handleSubmit] Response status:",
+        res.status,
+        "body:",
+        responseText,
+      );
+      const data = JSON.parse(responseText);
       if (!res.ok) {
-        throw new Error(data?.error ?? `Failed to save post: ${res.status} ${responseText}`);
+        throw new Error(
+          data?.error ?? `Failed to save post: ${res.status} ${responseText}`,
+        );
       }
       toast.success(mode === "create" ? "Post created" : "Post saved");
       router.push("/dashboard/blog");

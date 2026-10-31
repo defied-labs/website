@@ -212,6 +212,7 @@ function SlideTransition({
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-measure when children change
   useLayoutEffect(() => {
     if (containerRef.current) onHeightReady(containerRef.current.offsetHeight);
   }, [children, onHeightReady]);
@@ -299,6 +300,7 @@ function StepConnector({ isComplete }: { isComplete: boolean }) {
 function CheckIcon() {
   return (
     <svg
+      aria-hidden="true"
       className="h-4 w-4"
       viewBox="0 0 24 24"
       fill="none"

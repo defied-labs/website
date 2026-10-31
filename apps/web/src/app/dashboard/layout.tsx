@@ -126,6 +126,7 @@ export default function DashboardLayout({
                 </p>
               ) : (
                 <div
+                  role="status"
                   className="h-16 animate-pulse rounded-lg bg-muted"
                   aria-label="Loading profile"
                 />

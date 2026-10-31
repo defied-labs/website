@@ -40,3 +40,6 @@ yarn-error.log*
 
 .turbo
 build*.log
+
+# docker secrets
+docker/*.env

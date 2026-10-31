@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
       "next-mdx-import-source-file": "./mdx-components.ts",
     },
   },
+  output: "standalone",
   images: {
     remotePatterns: [
       {

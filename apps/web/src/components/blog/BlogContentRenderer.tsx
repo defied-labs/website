@@ -4,8 +4,6 @@ import React from "react";
 import { renderBlockNoteContent } from "@/lib/blocknote-render";
 
 export function BlogContentRenderer({ content }: { content: string }) {
-  if (!content.trim()) return null;
-
   const [html, setHtml] = React.useState<string | null>(null);
 
   React.useEffect(() => {
@@ -18,7 +16,10 @@ export function BlogContentRenderer({ content }: { content: string }) {
     setHtml(html);
   }, [content]);
 
-  if (!html) return <div>Loading content...</div>;
+  if (!content.trim()) return null;
+  if (html === null) return <div>Loading content...</div>;
+  if (!html) return <div>This post could not be displayed.</div>;
 
+  // biome-ignore lint/security/noDangerouslySetInnerHtml: output passes through sanitizeBlogHtml
   return <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: html }} />;
 }

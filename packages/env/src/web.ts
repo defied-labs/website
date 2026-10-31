@@ -22,8 +22,6 @@ dotenv.config({
 export const env = createEnv({
   server: {
     INTERNAL_SERVER_URL: z.url(),
-    PAYLOAD_SECRET: z.string().min(32),
-    DATABASE_URL: z.string().min(1),
     APP_ENV: z
       .enum(["development", "staging", "production"])
       .default("development"),
@@ -33,8 +31,6 @@ export const env = createEnv({
   },
   runtimeEnv: {
     INTERNAL_SERVER_URL: process.env.INTERNAL_SERVER_URL,
-    PAYLOAD_SECRET: process.env.PAYLOAD_SECRET,
-    DATABASE_URL: process.env.DATABASE_URL,
     APP_ENV: process.env.APP_ENV,
     NEXT_PUBLIC_SERVER_URL: process.env.NEXT_PUBLIC_SERVER_URL,
   },

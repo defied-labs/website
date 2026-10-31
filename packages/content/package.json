@@ -13,7 +13,7 @@
   },
   "scripts": {
     "check-types": "tsc --noEmit --declaration false --declarationMap false --composite false",
-    "test": "vitest run"
+    "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
     "zod": "catalog:"

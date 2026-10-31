@@ -1,0 +1,82 @@
+# Production stack. On the VPS:
+#   cp docker/server.env.example docker/server.env   (fill in real secrets)
+#   cp docker/db.env.example docker/db.env
+#   docker compose --profile migrate run --rm migrate
+#   docker compose up -d --build
+# Only the web app is published, and only on 127.0.0.1 -> put a reverse proxy
+# (Caddy / nginx / Traefik) with TLS in front of it.
+
+x-hardening: &hardening
+  restart: unless-stopped
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+  logging:
+    driver: json-file
+    options: { max-size: "10m", max-file: "3" }
+
+services:
+  db:
+    <<: *hardening
+    image: mariadb:11.8
+    env_file: docker/db.env
+    cap_add: [CHOWN, SETUID, SETGID, DAC_OVERRIDE]
+    volumes:
+      - db-data:/var/lib/mysql
+    networks: [backend]
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  migrate:
+    build: { context: ., target: migrate, args: { NEXT_PUBLIC_SERVER_URL: "${PUBLIC_URL:?set PUBLIC_URL}" } }
+    image: defied-migrate
+    profiles: [migrate]
+    env_file: docker/server.env
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: [ALL]
+    depends_on: { db: { condition: service_healthy } }
+    networks: [backend]
+
+  server:
+    <<: *hardening
+    build: { context: ., target: server, args: { NEXT_PUBLIC_SERVER_URL: "${PUBLIC_URL:?set PUBLIC_URL}" } }
+    image: defied-server
+    env_file: docker/server.env
+    read_only: true
+    tmpfs: [/tmp]
+    depends_on: { db: { condition: service_healthy } }
+    networks: [backend]
+    mem_limit: 512m
+    pids_limit: 200
+
+  web:
+    <<: *hardening
+    build:
+      context: .
+      target: web
+      args:
+        NEXT_PUBLIC_SERVER_URL: "${PUBLIC_URL:?set PUBLIC_URL}"
+        INTERNAL_SERVER_URL: http://server:3005
+    image: defied-web
+    environment:
+      APP_ENV: production
+      NEXT_PUBLIC_SERVER_URL: "${PUBLIC_URL}"
+      INTERNAL_SERVER_URL: http://server:3005
+    read_only: true
+    tmpfs: [/tmp, "/app/apps/web/.next/cache:uid=1000,gid=1000"]
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on: [server]
+    networks: [backend]
+    mem_limit: 768m
+    pids_limit: 200
+
+networks:
+  backend:
+
+volumes:
+  db-data:

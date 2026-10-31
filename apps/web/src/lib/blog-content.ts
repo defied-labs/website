@@ -205,14 +205,6 @@ export function renderBlogContent(content: string) {
 export function renderMathInHtml(html: string) {
   if (typeof document === "undefined") return html;
 
-  console.log("[renderMathInHtml] Input HTML length:", html.length);
-  console.log("[renderMathInHtml] Contains $$:", /\$\$/.test(html));
-  console.log("[renderMathInHtml] Contains $:", /\$[^$]/.test(html));
-  console.log("[renderMathInHtml] Contains math tags:", /<math/.test(html));
-  console.log("[renderMathInHtml] Contains katex:", /katex/.test(html));
-  console.log("[renderMathInHtml] Contains math-display:", /math-display/.test(html));
-  console.log("[renderMathInHtml] Contains math-inline:", /math-inline/.test(html));
-  console.log("[renderMathInHtml] Sample HTML:", html.substring(0, 500));
   
   const container = document.createElement("div");
   container.innerHTML = html;

@@ -55,6 +55,7 @@ export function BlogPostArticleClient({
       {isLexicalBlogContent(content) ? (
         <BlogContentRenderer content={content} />
       ) : (
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: renderBlogContent sanitizes its output
         <div dangerouslySetInnerHTML={{ __html: renderBlogContent(content) }} />
       )}
     </article>

@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { IconMenu, IconXFilled } from "@tabler/icons-react";
 import type { Dispatch, SetStateAction } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const navLinks = [
   {
@@ -111,9 +112,15 @@ function Header() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 mx-auto w-full md:max-w-5xl flex items-center md:justify-between justify-evenly gap-6 p-4 bg-background/70 backdrop-blur-md md:rounded-2xl md:mt-5 box-border">
       <div className="whitespace-pre">
-        <h1 className="text-xl font-bold">Defied</h1>
+        <Image
+          src="/logo-full-dark.png"
+          width={120}
+          height={50}
+          alt="Logo Full"
+          className="h-12.5 object-cover"
+        />
       </div>
-      <div className="flex items-center gap-8 text-[15px] font-medium leading-[1.2em] text-[#5B6270] dark:text-[#D9D9D9]">
+      <div className="flex items-center gap-8 text-[15px] font-light leading-3 text-[#5B6270] dark:text-[#D9D9D9]">
         <HeaderLinks className="hidden md:flex" />
       </div>
       <div className="md:flex items-center gap-4 hidden">

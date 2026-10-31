@@ -64,7 +64,7 @@ describe("BlogService Unit Tests", () => {
     const result = await service.listPosts();
 
     expect(mockPrisma.post.findMany).toHaveBeenCalledWith({
-      orderBy: [{ publishedAt: "desc", createdAt: "desc" }],
+      orderBy: [{ publishedAt: "desc" }, { createdAt: "desc" }],
       include: { author: { select: { id: true, name: true, email: true } } },
     });
     expect(result).toEqual([mockPost]);
@@ -77,7 +77,7 @@ describe("BlogService Unit Tests", () => {
 
     expect(mockPrisma.post.findMany).toHaveBeenCalledWith({
       where: { status: "published" },
-      orderBy: [{ publishedAt: "desc", createdAt: "desc" }],
+      orderBy: [{ publishedAt: "desc" }, { createdAt: "desc" }],
       include: { author: { select: { id: true, name: true, email: true } } },
     });
     expect(result).toEqual([mockPost]);
