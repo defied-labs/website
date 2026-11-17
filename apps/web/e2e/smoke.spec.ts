@@ -7,7 +7,10 @@ test.describe("Defied Smoke E2E Tests", () => {
     await page.goto("/");
 
     // Verify hero text
-    const heading = page.locator("h1");
+    const heading = page.getByRole("heading", {
+      level: 1,
+      name: /The industry standard was a/,
+    });
     await expect(heading).toContainText("The industry standard was a ceiling");
     await expect(heading).toContainText("defied");
 
