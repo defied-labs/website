@@ -4,7 +4,7 @@ import { itemsConfig } from "@/config/itemsConfig";
 
 function TodaySection() {
   return (
-    <section className="bg-muted py-16 min-h-[50dvh] w-full">
+    <section id="today" className="scroll-mt-28 bg-primary/5 py-16 min-h-[50dvh] w-full">
       <SectionTitle className="text-center">
         <span>// Our principles</span>
         <span>

@@ -118,7 +118,7 @@ function Header() {
           height={153}
           alt="Logo Full"
           unoptimized
-          className="h-4.5 w-auto"
+          className="h-4.5 w-auto invert dark:invert-0"
         />
       </div>
       <div className="flex items-center gap-8 text-[15px] font-light leading-3 text-[#5B6270] dark:text-[#D9D9D9]">
@@ -147,7 +147,7 @@ function HeaderLinks({ className }: { className?: string }) {
     <div className={cn("relative max-w-2xl", className)}>
       <Menu
         setActive={setActive}
-        className="mb-40 text-3xl uppercase font-bold md:mb-0 md:text-base md:normal-case md:font-normal"
+        className="mb-40 flex-col items-center gap-6 space-x-0 text-3xl uppercase font-bold md:mb-0 md:flex-row md:gap-0 md:space-x-4 md:text-base md:normal-case md:font-normal"
       >
         {navLinks.map((navLink) => (
           <MenuItem
@@ -200,7 +200,7 @@ function MobileNavbar({
     <div
       className={cn(
         "fixed z-50 w-screen h-screen bg-background md:hidden transition-all duration-1000 ease-in-out top-0 bottom-0",
-        open ? "translate-x-0" : "translate-x-full",
+        open ? "translate-x-0" : "translate-x-full invisible",
       )}
     >
       <div className="flex flex-col w-full justify-end h-full py-20">

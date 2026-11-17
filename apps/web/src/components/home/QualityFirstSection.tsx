@@ -1,10 +1,9 @@
 import { itemsConfig } from "@/config/itemsConfig";
 import SectionTitle from "../ui/SectionTitle";
-import { IconUser } from "@tabler/icons-react";
 
 function QualityFirstSection() {
   return (
-    <section className="bg-background py-16 min-h-[50dvh] w-full">
+    <section className="bg-background py-16 w-full">
       <SectionTitle className="text-center">
         <span>// Quality First</span>
         <span>
@@ -22,30 +21,7 @@ function QualityFirstSection() {
             </h3>
           </div>
         ))}
-        <div className="col-span-3 bg-secondary rounded-2xl">
-          <p className="text-lg p-6">
-            {/* TODO: Add a testimonial or quote here */}
-          </p>
-
-          <div className="flex items-center gap-4 p-6 border-t border-muted-foreground/20">
-            <div className="bg-primary/10 w-fit p-2 rounded-md">
-              <IconUser className="text-primary" />
-            </div>
-            <div>
-              <p className="font-semibold">
-                {/* TODO: Add a testimonial or quote here */}
-              </p>
-              <p className="text-sm text-muted-foreground">
-                {/* TODO: Add a testimonial or quote here */}
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
-
-      <p className="text-center text-sm text-muted-foreground mt-20">
-        Trusted by teams building on an open foundation
-      </p>
       {/*       <LogoLoop
         logos={techLogos}
         speed={100}

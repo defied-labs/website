@@ -4,7 +4,7 @@ import SectionTitle from "@/components/ui/SectionTitle";
 
 function StartSection() {
   return (
-    <section className="grid lg:grid-cols-2 items-center justify-evenly py-16 gap-16 dark:bg-primary/10 bg-primary/10 min-h-[50dvh] h-fit lg:w-[60%] w-full mx-auto rounded-2xl lg:px-20 px-8 my-12">
+    <section id="origin" className="scroll-mt-28 grid lg:grid-cols-2 items-center justify-evenly py-16 gap-16 bg-primary/10 min-h-[50dvh] h-fit lg:w-[60%] w-[calc(100%-2rem)] mx-auto rounded-2xl lg:px-20 px-8 my-12">
       <div className="">
         <SectionTitle>
           <span>// Where we started</span>

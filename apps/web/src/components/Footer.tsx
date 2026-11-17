@@ -3,6 +3,7 @@ import {
   IconBrandLinkedinFilled,
   IconBrandXFilled,
 } from "@tabler/icons-react";
+import Image from "next/image";
 import Link from "next/link";
 
 function Footer() {
@@ -10,7 +11,14 @@ function Footer() {
     <footer className="bg-background px-10 pt-14 pb-8 w-full">
       <div className="w-full flex justify-evenly">
         <div className="flex flex-col gap-2 items-start">
-          <h1 className="text-xl font-bold">Defied</h1>
+          <Image
+            src="/logo-full-dark.svg"
+            width={538}
+            height={153}
+            alt="Defied"
+            unoptimized
+            className="h-6 w-auto invert dark:invert-0"
+          />
           <p className="text-sm text-muted-foreground font-medium">
             Defy limits, build better
           </p>
