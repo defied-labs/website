@@ -113,7 +113,7 @@ function Header() {
     <header className="fixed inset-x-0 top-0 z-50 mx-auto w-full md:max-w-5xl flex items-center md:justify-between justify-evenly gap-6 p-4 bg-background/70 backdrop-blur-md md:rounded-2xl md:mt-5 box-border">
       <div className="whitespace-pre h-12.5 flex items-center px-7">
         <Image
-          src="/logo-full-dark.png"
+          src="/logo-full-dark.svg"
           width={538}
           height={153}
           alt="Logo Full"
