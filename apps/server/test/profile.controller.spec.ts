@@ -67,7 +67,7 @@ describe("ProfileController", () => {
       completed: true,
       profile: { displayName: "Ada" },
     });
-    const call = mockUpsert.mock.calls[0][0];
+    const call = mockUpsert.mock.calls[0]?.[0];
     expect(call.create).toMatchObject({
       userId: "user_1",
       displayName: "Ada",
