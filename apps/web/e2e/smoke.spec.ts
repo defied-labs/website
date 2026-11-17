@@ -15,7 +15,7 @@ test.describe("Defied Smoke E2E Tests", () => {
     await expect(heading).toContainText("defied");
 
     // Verify call to actions
-    const getStartedLink = page.getByRole("link", { name: "Get Started" });
+    const getStartedLink = page.getByRole("link", { name: "Join the closed beta" });
     await expect(getStartedLink).toBeVisible();
     await expect(getStartedLink).toHaveAttribute("href", "/auth/magic-link");
   });
