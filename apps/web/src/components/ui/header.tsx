@@ -111,13 +111,14 @@ function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 mx-auto w-full md:max-w-5xl flex items-center md:justify-between justify-evenly gap-6 p-4 bg-background/70 backdrop-blur-md md:rounded-2xl md:mt-5 box-border">
-      <div className="whitespace-pre">
+      <div className="whitespace-pre h-12.5 flex items-center px-7">
         <Image
           src="/logo-full-dark.png"
-          width={120}
-          height={50}
+          width={538}
+          height={153}
           alt="Logo Full"
-          className="h-12.5 object-cover"
+          unoptimized
+          className="h-4.5 w-auto"
         />
       </div>
       <div className="flex items-center gap-8 text-[15px] font-light leading-3 text-[#5B6270] dark:text-[#D9D9D9]">
