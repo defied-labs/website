@@ -9,6 +9,7 @@ allowBuilds:
   esbuild: false
   prisma: false
   sharp: false
+  workerd: false
 
 catalog:
   '@prisma/client': ^7.8.0
