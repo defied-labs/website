@@ -1,7 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
-  "globalPassThroughEnv": ["DATABASE_URL", "AUTH_SECRET", "AUTH_URL", "AUTH_TRUST_HOST"],
+  "globalPassThroughEnv": ["NODE_ENV", "APP_ENV", "DATABASE_URL", "AUTH_*", "STRIPE_*", "CORS_ORIGIN", "SERVER_PORT", "SMTP_*", "LOG_LEVEL", "PINO_PRETTY"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
