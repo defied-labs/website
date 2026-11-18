@@ -8,10 +8,11 @@ import {
   MenuItem,
 } from "@/components/ui/navbar-menu";
 import { Button } from "@/components/ui/button";
-import { IconMenu, IconXFilled } from "@tabler/icons-react";
+import { IconMenu, IconX } from "@tabler/icons-react";
 import type { Dispatch, SetStateAction } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import type { Route } from "next";
 
 const navLinks = [
   {
@@ -111,7 +112,12 @@ function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 mx-auto w-full md:max-w-5xl flex items-center md:justify-between justify-evenly gap-6 p-4 bg-background/70 backdrop-blur-md md:rounded-2xl md:mt-5 box-border">
-      <div className="whitespace-pre h-12.5 flex items-center px-7">
+      <Link
+        href="/"
+        aria-label="Defied home"
+        onClick={() => setIsOpen(false)}
+        className="whitespace-pre h-12.5 flex items-center px-7"
+      >
         <Image
           src="/logo-full-dark.svg"
           width={538}
@@ -120,7 +126,7 @@ function Header() {
           unoptimized
           className="h-4.5 w-auto invert dark:invert-0"
         />
-      </div>
+      </Link>
       <div className="flex items-center gap-8 text-[15px] font-light leading-3 text-[#5B6270] dark:text-[#D9D9D9]">
         <HeaderLinks className="hidden md:flex" />
       </div>
@@ -132,8 +138,14 @@ function Header() {
         </Link>
       </div>
       <div className="md:hidden flex">
-        <Button onClick={() => setIsOpen((o) => !o)}>
-          <IconMenu />
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isOpen}
+          onClick={() => setIsOpen((o) => !o)}
+        >
+          {isOpen ? <IconX /> : <IconMenu />}
         </Button>
       </div>
       <MobileNavbar open={isOpen} setOpen={setIsOpen} />
@@ -145,10 +157,7 @@ function HeaderLinks({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
   return (
     <div className={cn("relative max-w-2xl", className)}>
-      <Menu
-        setActive={setActive}
-        className="mb-40 flex-col items-center gap-6 space-x-0 text-3xl uppercase font-bold md:mb-0 md:flex-row md:gap-0 md:space-x-4 md:text-base md:normal-case md:font-normal"
-      >
+      <Menu setActive={setActive}>
         {navLinks.map((navLink) => (
           <MenuItem
             key={navLink.id}
@@ -196,23 +205,42 @@ function MobileNavbar({
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }) {
+  const close = () => setOpen(false);
+
   return (
-    <div
+    <nav
       className={cn(
-        "fixed z-50 w-screen h-screen bg-background md:hidden transition-all duration-1000 ease-in-out top-0 bottom-0",
-        open ? "translate-x-0" : "translate-x-full invisible",
+        "fixed inset-x-0 top-full h-dvh overflow-y-auto bg-background px-6 pt-4 pb-32 md:hidden transition-all duration-300 ease-out",
+        open
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 -translate-y-2 invisible pointer-events-none",
       )}
     >
-      <div className="flex flex-col w-full justify-end h-full py-20">
-        <HeaderLinks />
-        <Button
-          className="py-10 w-[90%] mx-auto"
-          onClick={() => setOpen(false)}
-        >
-          <IconXFilled />
-        </Button>
+      <div className="flex flex-col gap-8">
+        {navLinks.map((navLink) => (
+          <div key={navLink.id} className="flex flex-col gap-3">
+            <p className="text-xs font-mono uppercase text-primary">
+              // {navLink.title}
+            </p>
+            {navLink.links.map((link) => (
+              <Link
+                key={link.id}
+                href={link.href as Route}
+                onClick={close}
+                className="text-lg text-foreground/90 hover:text-primary transition-colors"
+              >
+                {link.title}
+              </Link>
+            ))}
+          </div>
+        ))}
+        <Link href="/auth/magic-link" onClick={close}>
+          <Button className="w-full py-5.5 text-white text-[16px] font-semibold rounded-[10px]">
+            Sign In
+          </Button>
+        </Link>
       </div>
-    </div>
+    </nav>
   );
 }
 
