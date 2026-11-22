@@ -2,6 +2,10 @@ import type { ReadableStream as NodeReadableStream } from "node:stream/web";
 import { defineCloudflareConfig } from "@opennextjs/cloudflare";
 
 const config = defineCloudflareConfig();
+config.cloudflare = {
+  ...config.cloudflare,
+  dangerousDisableConfigValidation: true,
+};
 
 type ProxyOverride = NonNullable<
   NonNullable<typeof config.default.override>["proxyExternalRequest"]
