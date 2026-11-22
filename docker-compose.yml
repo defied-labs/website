@@ -69,7 +69,7 @@ services:
     read_only: true
     tmpfs: [/tmp, "/app/apps/web/.next/cache:uid=1000,gid=1000"]
     ports:
-      - "127.0.0.1:3000:3000"
+      - "127.0.0.1:2029:3000"
     depends_on: [server]
     networks: [backend]
     mem_limit: 768m

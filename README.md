@@ -7,7 +7,7 @@ monorepo with Next.js 16, NestJS, Prisma (MySQL), Auth.js and Fumadocs.
 
 ![Defied Hero](apps/web/public/og-image.png)
 
-**Try it live:** [defied.dev](https://defied.sgattix.online)
+**Try it live:** [defied.dev](https://defied.dev)
 
 ---
 
