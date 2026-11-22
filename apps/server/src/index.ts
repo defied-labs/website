@@ -5,7 +5,7 @@ import { authHandler } from "@defied/auth/auth.handler";
 
 import { AppModule } from "./app.module";
 
-import express from "express";
+import express, { type NextFunction, type Request, type Response } from "express";
 
 async function bootstrap() {
   logConfigSummary();
@@ -21,6 +21,19 @@ async function bootstrap() {
   });
 
   const expressApp = app.getHttpAdapter().getInstance();
+  expressApp.set("trust proxy", true);
+
+  if (env.AUTH_URL) {
+    const publicAuthUrl = new URL(env.AUTH_URL);
+    expressApp.use(
+      "/api/auth",
+      (req: Request, _res: Response, next: NextFunction) => {
+        req.headers.host = publicAuthUrl.host;
+        req.headers["x-forwarded-proto"] = publicAuthUrl.protocol.slice(0, -1);
+        next();
+      },
+    );
+  }
 
   expressApp.use(express.urlencoded({ extended: false, limit: "5mb" }));
   expressApp.use(express.json({ limit: "5mb" }));
