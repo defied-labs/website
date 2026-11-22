@@ -188,3 +188,76 @@ describe("signIn event", () => {
     ).toBeInstanceOf(Date);
   });
 });
+
+describe("signIn event role sync", () => {
+  const ROLES = "urn:zitadel:iam:org:project:roles";
+  const zitadel = { provider: "zitadel", type: "oidc" };
+
+  async function signInWith(
+    profile: Record<string, unknown>,
+    account: unknown = zitadel,
+  ) {
+    await events.signIn!({
+      user: { id: "u1", email: "a@defied.dev" },
+      profile: { sub: "1", name: "A", ...profile },
+      account,
+    } as never);
+    return mockPrisma.user.update.mock.calls.at(-1)![0].data.role;
+  }
+
+  it("requests the Zitadel project roles scope", () => {
+    const zitadelProvider = authConfig.providers.find(
+      (p) => typeof p === "object" && "id" in p && p.id === "zitadel",
+    ) as { authorization?: { params?: { scope?: string } } } | undefined;
+    const scope =
+      zitadelProvider?.authorization?.params?.scope ??
+      // Provider factories keep user options under `options`.
+      (
+        zitadelProvider as unknown as {
+          options?: { authorization?: { params?: { scope?: string } } };
+        }
+      )?.options?.authorization?.params?.scope;
+    expect(scope?.split(" ")).toContain(ROLES);
+  });
+
+  it("grants site_admin when Zitadel grants the role", async () => {
+    await expect(
+      signInWith({ [ROLES]: { site_admin: { "123": "defied.dev" } } }),
+    ).resolves.toBe("site_admin");
+  });
+
+  it("demotes to user when the role is not granted", async () => {
+    await expect(
+      signInWith({ [ROLES]: { editor: { "123": "defied.dev" } } }),
+    ).resolves.toBe("user");
+  });
+
+  it("demotes to user when the roles claim is missing or malformed", async () => {
+    await expect(signInWith({})).resolves.toBe("user");
+    await expect(signInWith({ [ROLES]: ["site_admin"] })).resolves.toBe("user");
+    await expect(signInWith({ [ROLES]: "site_admin" })).resolves.toBe("user");
+  });
+
+  it("ignores roles that only appear in the userinfo response", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(
+        new Response(
+          JSON.stringify({ [ROLES]: { site_admin: { "123": "defied.dev" } } }),
+        ),
+      ),
+    );
+    await expect(
+      signInWith({ name: undefined }, { ...zitadel, access_token: "t" }),
+    ).resolves.toBe("user");
+  });
+
+  it("leaves the stored role untouched for magic-link logins", async () => {
+    await expect(
+      signInWith(
+        { [ROLES]: { site_admin: { "123": "defied.dev" } } },
+        { provider: "email", type: "email" },
+      ),
+    ).resolves.toBeUndefined();
+  });
+});

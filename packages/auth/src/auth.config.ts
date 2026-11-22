@@ -4,6 +4,7 @@ import { env } from "@defied/env/server";
 import Zitadel from "@auth/core/providers/zitadel";
 import Email from "@auth/core/providers/email";
 import type { AuthConfig } from "@auth/core";
+import { appRoleFromZitadel, ZITADEL_ROLES_SCOPE } from "./lib/zitadel-roles";
 
 type IdentityClaims = Record<string, unknown>;
 
@@ -93,7 +94,7 @@ export const authConfig: AuthConfig = {
           env.AUTH_ZITADEL_AUTHORIZATION_ENDPOINT ??
           `${env.AUTH_ZITADEL_ISSUER}/oauth/v2/authorize`,
         params: {
-          scope: "openid profile email",
+          scope: `openid profile email ${ZITADEL_ROLES_SCOPE}`,
           prompt: "login",
         },
       },
@@ -219,6 +220,13 @@ export const authConfig: AuthConfig = {
       const name = identityName(claims);
       const email = identityValue(claims, "email") ?? user.email;
       const image = identityValue(claims, "picture") ?? user.image;
+      // Roles come only from the verified ID token (`profile`), never from the
+      // userinfo fallback, and only for Zitadel logins. Magic-link logins
+      // leave the stored role untouched.
+      const role =
+        account?.provider === "zitadel"
+          ? appRoleFromZitadel(profileClaims)
+          : undefined;
 
       await prisma.user.update({
         where: { id: user.id },
@@ -228,6 +236,7 @@ export const authConfig: AuthConfig = {
           image: image ?? undefined,
           emailVerified:
             claims.email_verified === true ? new Date() : undefined,
+          role,
         },
       });
     },
