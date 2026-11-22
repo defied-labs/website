@@ -1,16 +1,13 @@
+import { useSearchParams } from "next/navigation";
 import FaultyTerminal from "@/components/FaultyTerminal";
+import LoginForm from "@/components/LoginForm";
 
 export default function MagicLinkSignInContent() {
+  const searchParams = useSearchParams();
+
   return (
     <div className="grid grid-cols-3 h-screen w-full">
-      <div className="bg-secondary shadow-[inset_0_0_30px_0_rgba(0,0,0,0.5)] w-full lg:col-span-1 col-span-3">
-        <div className="flex flex-col items-center justify-center h-full gap-2 px-6 text-center">
-          <h1 className="text-2xl font-bold">Login unavailable</h1>
-          <p className="text-muted-foreground">
-            Sign in is currently not available. Please check back soon.
-          </p>
-        </div>
-      </div>
+      <LoginForm searchParams={searchParams} />
       <div className="col-span-2 w-full lg:flex hidden">
         <FaultyTerminal
           scale={2.2}

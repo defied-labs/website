@@ -20,11 +20,17 @@ test.describe("Defied Smoke E2E Tests", () => {
     await expect(getStartedLink).toHaveAttribute("href", "/auth/magic-link");
   });
 
-  test("login page shows unavailable notice", async ({ page }) => {
+  test("magic link authentication page loads with email input", async ({
+    page,
+  }) => {
     await page.goto("/auth/magic-link");
 
-    await expect(
-      page.getByRole("heading", { name: "Login unavailable" }),
-    ).toBeVisible();
+    // Check heading and form
+    await expect(page.getByRole("heading", { name: "Sign In" })).toBeVisible();
+    const emailInput = page.getByLabel("Email");
+    await expect(emailInput).toBeVisible();
+
+    const submitButton = page.getByRole("button", { name: /Send Magic Link/i });
+    await expect(submitButton).toBeVisible();
   });
 });
